@@ -13,6 +13,7 @@ namespace MauiCalculator.MVVC.ViewModels
         public bool ISNumber1 { set; get; } = true;
         public string Number1 { get; set; } = "0";
         public string Number2 { get; set; } = "0";
+        public string History { get; set; } = "";
         public double Result { get; set; } = 0;
         public Operations Operation { get; set; } = Operations.Clear;
 
@@ -34,20 +35,22 @@ namespace MauiCalculator.MVVC.ViewModels
         public ICommand Number9Command => new Command(() => Concatenar("9"));
         public ICommand Number0Command => new Command(() => Concatenar("0"));
         public ICommand DatCommand => new Command(() => Concatenar("."));
+        public ICommand ResultCommand => new Command(() => ResultOperation());
 
 
         private void Concatenar(string data)
         {
             if (ISNumber1)
             {
-                if(data == "0" && Number1 == "0")
+                if (data == "0" && Number1 == "0")
                 {
                     return;
-                }else if(data == "." && Number1 == "0")
+                }
+                else if (data == "." && Number1 == "0")
                 {
                     Number1 = "0" + data;
                 }
-                Number1 += data;
+                Number1 = data;
             }
             else
             {
@@ -59,14 +62,31 @@ namespace MauiCalculator.MVVC.ViewModels
                 {
                     Number2 = "0" + data;
                 }
-                Number2 += data;
+                Number2 = data;
             }
 
+            History += data;
         }
 
         private void AddOperation()
         {
-            
+            if (Number1 != "0")
+            {
+                ISNumber1 = false;
+                Operation = Operations.Add;
+            }
+            else if (Number2 == "0")
+            {
+                return;
+            }
+            else
+            {
+                ResultOperation();
+                Number1 = Result.ToString();
+                Number2 = "0";
+            }
+            History += "+";
+
         }
 
         private void MultiplicationOperation()
@@ -74,15 +94,19 @@ namespace MauiCalculator.MVVC.ViewModels
             if (Number1 != "0")
             {
                 ISNumber1 = false;
+                Operation = Operations.Multiply;
             }
-            else if(Number2 == "0")
+            else if (Number2 == "0")
             {
-                Result = Convert.ToDouble(Number1);
+                return;
             }
             else
             {
-                Result = Convert.ToDouble(Number1) * Convert.ToDouble(Number2);
+                ResultOperation();
+                Number1 = Result.ToString();
+                Number2 = "0";
             }
+            History += "*";
         }
 
         private void SubtractionOperation()
@@ -90,37 +114,121 @@ namespace MauiCalculator.MVVC.ViewModels
             if (Number1 != "0")
             {
                 ISNumber1 = false;
+                Operation = Operations.Subtract;
             }
             else if (Number2 == "0")
             {
-                Result = Convert.ToDouble(Number1);
+                return;
             }
             else
             {
-                Result = Convert.ToDouble(Number1) - Convert.ToDouble(Number2);
+                ResultOperation();
                 Number1 = Result.ToString();
                 Number2 = "0";
-            }            
+            }
+            History += "-";
         }
 
         private void DivisionOperation()
         {
-            Result = Number1 / Number2;
+            if (Number1 != "0")
+            {
+                ISNumber1 = false;
+                Operation = Operations.Divide;
+            }
+            else if (Number2 == "0")
+            {
+                return;
+            }
+            else
+            {
+                ResultOperation();
+                Number1 = Result.ToString();
+                Number2 = "0";
+            }
+            History += "/";
         }
 
         private void SquaredOperation()
         {
-            Result = (float)Math.Pow(Number1, Number2);
+            if (Number1 != "0")
+            {
+                ISNumber1 = false;
+                Operation = Operations.Squared;
+            }
+            else if (Number2 == "0")
+            {
+                return;
+            }
+            else
+            {
+                ResultOperation();
+                Number1 = Result.ToString();
+                Number2 = "0";
+            }
+            History += "^2";
         }
 
         private void ClearOperation()
         {
-            Result = Number1 = Number2 = 0;
+            Result = 0;
+            Number1 = "0";
+            Number2 = "0";
+            History = "";
+            ISNumber1 = true;
         }
 
         private void PorcentOperation()
         {
-            Result = Number1 * Number2 / 100;
+            if (Number1 != "0")
+            {
+                ISNumber1 = false;
+                Operation = Operations.Porcent;
+            }
+            else if (Number2 == "0")
+            {                
+                return;
+            }
+            else
+            {
+                ResultOperation();
+                Number1 = Result.ToString();
+                Number2 = "0";
+            }
+            History += "+";
+
+        }
+
+        private void ResultOperation()
+        {
+            if (Number1 == "0" || Number2 == "0")
+            {
+                return;
+            }
+
+            switch (Operation)
+            {
+                case Operations.Porcent:
+                    Result = Convert.ToDouble(Number1) * (Convert.ToDouble(Number2) / 100);
+                    break;
+                case Operations.Add:
+                    Result = Convert.ToDouble(Number1) + Convert.ToDouble(Number2);
+                    break;
+                case Operations.Subtract:
+                    Result = Convert.ToDouble(Number1) - Convert.ToDouble(Number2);
+                    break;
+                case Operations.Multiply:
+                    Result = Convert.ToDouble(Number1) * Convert.ToDouble(Number2);
+                    break;
+                case Operations.Divide:
+                    Result = Convert.ToDouble(Number1) / Convert.ToDouble(Number2);
+                    break;
+                case Operations.Squared:
+                    Result = (Double)Math.Pow(Convert.ToDouble(Number1), Convert.ToDouble(Number2));
+                    break;
+                case Operations.Clear:
+                    break;
+            }
         }
 
     }

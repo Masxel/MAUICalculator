@@ -7,6 +7,7 @@
     
         <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -25,9 +26,24 @@
 
         <Label
             Grid.ColumnSpan="4"
+            BackgroundColor="AliceBlue"
+            FontAttributes="Bold"
+            Grid.Row="0"
+            FontSize="48"            
+            HorizontalTextAlignment="End"
+            LineBreakMode="NoWrap"
+            Text="{Binding History}"
+            TextColor="Black"
+            VerticalTextAlignment="Center"
+            >
+        </Label>
+
+        <Label
+            Grid.ColumnSpan="4"
             BackgroundColor="White"
             FontAttributes="Bold"
             FontSize="48"            
+            Grid.Row="1"
             HorizontalTextAlignment="End"
             LineBreakMode="NoWrap"
             Text="{Binding Result}"
@@ -38,7 +54,7 @@
 
         <Button
             x:Name="Limpiar"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="0"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
@@ -50,7 +66,7 @@
             ></Button>
 
         <Button
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
@@ -61,28 +77,30 @@
             Command="{Binding SquaredCommand}"
             ></Button>
         <Button
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="2"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
             FontSize="36"
             TextColor="White"
             Text="%"
+            Command="{Binding PorcentCommand}"
             Margin="5"
             
             ></Button>
         <Button
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="3"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
             FontSize="36"
             TextColor="White"
             Text="/"
+            Command="{Binding DivisionOperation}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="0"
             BackgroundColor="White"
             CornerRadius="20"
@@ -90,109 +108,120 @@
             TextColor="Black"
             Text="7"
             Margin="5"
+            Command="{Binding Number7Command}"
             ></Button>
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="1"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="8"
+            Command="{Binding Number8Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="2"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="9"
+            Command="{Binding Number9Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="3"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
             FontSize="36"
             TextColor="White"
             Text="*"
+            Command="{Binding MultiplicationCommand}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="0"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="4"
+            Command="{Binding Number4Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="1"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="5"
+            Command="{Binding Number5Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="2"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="6"
+            Command="{Binding Number6Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="3"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
             FontSize="36"
             TextColor="White"
             Text="-"
+            Command="{Binding SubtractionCommand}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="0"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="1"
+            Command="{Binding Number1Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="1"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="2"
+            Command="{Binding Number2Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="2"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="3"
+            Command="{Binding Number3Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="3"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
@@ -203,7 +232,7 @@
             Command="{Binding AddCommand}"
             ></Button>
         <Button
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             BackgroundColor="White"
@@ -211,26 +240,29 @@
             FontSize="36"
             TextColor="Black"
             Text="0"
+            Command="{Binding Number0Command}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.Column="2"
             BackgroundColor="White"
             CornerRadius="20"
             FontSize="36"
             TextColor="Black"
             Text="."
+            Command="{Binding DatCommand}"
             Margin="5"
             ></Button>
         <Button
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.Column="3"
             BackgroundColor="PaleVioletRed"
             CornerRadius="20"
             FontSize="36"
             TextColor="White"
             Text="="
+            Command="{Binding ResultCommand}"
             Margin="5"
             ></Button>
     </Grid>
