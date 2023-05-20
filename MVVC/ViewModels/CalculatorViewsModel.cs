@@ -4,20 +4,124 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MauiCalculator.MVVC.Enums;
 
 namespace MauiCalculator.MVVC.ViewModels
 {
     public class CalculatorViewsModel
     {
-        public int Number1 { get; set; }
-        public int Number2 { get; set; }
-        public int Result { get; set; }
+        public bool ISNumber1 { set; get; } = true;
+        public string Number1 { get; set; } = "0";
+        public string Number2 { get; set; } = "0";
+        public double Result { get; set; } = 0;
+        public Operations Operation { get; set; } = Operations.Clear;
 
-        public ICommand AddCommand => new Command(() => Result = Number1 + Number2);
-        public ICommand SubtractionCommand => new Command(() => Result = Number1 - Number2);
-        public ICommand MultiplicationCommand => new Command(() => Result = Number1 * Number2);
-        public ICommand DivisionCommand => new Command(() => Result = Number1 * Number2);
+        public ICommand AddCommand => new Command(() => AddOperation());
+        public ICommand SubtractionCommand => new Command(() => SubtractionOperation());
+        public ICommand MultiplicationCommand => new Command(() => MultiplicationOperation());
+        public ICommand DivisionCommand => new Command(() => DivisionOperation());
+        public ICommand SquaredCommand => new Command(() => SquaredOperation());
+        public ICommand ClearCommand => new Command(() => ClearOperation());
+        public ICommand PorcentCommand => new Command(() => PorcentOperation());
+        public ICommand Number1Command => new Command(() => Concatenar("1"));
+        public ICommand Number2Command => new Command(() => Concatenar("2"));
+        public ICommand Number3Command => new Command(() => Concatenar("3"));
+        public ICommand Number4Command => new Command(() => Concatenar("4"));
+        public ICommand Number5Command => new Command(() => Concatenar("5"));
+        public ICommand Number6Command => new Command(() => Concatenar("6"));
+        public ICommand Number7Command => new Command(() => Concatenar("7"));
+        public ICommand Number8Command => new Command(() => Concatenar("8"));
+        public ICommand Number9Command => new Command(() => Concatenar("9"));
+        public ICommand Number0Command => new Command(() => Concatenar("0"));
+        public ICommand DatCommand => new Command(() => Concatenar("."));
 
+
+        private void Concatenar(string data)
+        {
+            if (ISNumber1)
+            {
+                if(data == "0" && Number1 == "0")
+                {
+                    return;
+                }else if(data == "." && Number1 == "0")
+                {
+                    Number1 = "0" + data;
+                }
+                Number1 += data;
+            }
+            else
+            {
+                if (data == "0" && Number2 == "0")
+                {
+                    return;
+                }
+                else if (data == "." && Number2 == "0")
+                {
+                    Number2 = "0" + data;
+                }
+                Number2 += data;
+            }
+
+        }
+
+        private void AddOperation()
+        {
+            
+        }
+
+        private void MultiplicationOperation()
+        {
+            if (Number1 != "0")
+            {
+                ISNumber1 = false;
+            }
+            else if(Number2 == "0")
+            {
+                Result = Convert.ToDouble(Number1);
+            }
+            else
+            {
+                Result = Convert.ToDouble(Number1) * Convert.ToDouble(Number2);
+            }
+        }
+
+        private void SubtractionOperation()
+        {
+            if (Number1 != "0")
+            {
+                ISNumber1 = false;
+            }
+            else if (Number2 == "0")
+            {
+                Result = Convert.ToDouble(Number1);
+            }
+            else
+            {
+                Result = Convert.ToDouble(Number1) - Convert.ToDouble(Number2);
+                Number1 = Result.ToString();
+                Number2 = "0";
+            }            
+        }
+
+        private void DivisionOperation()
+        {
+            Result = Number1 / Number2;
+        }
+
+        private void SquaredOperation()
+        {
+            Result = (float)Math.Pow(Number1, Number2);
+        }
+
+        private void ClearOperation()
+        {
+            Result = Number1 = Number2 = 0;
+        }
+
+        private void PorcentOperation()
+        {
+            Result = Number1 * Number2 / 100;
+        }
 
     }
 }
