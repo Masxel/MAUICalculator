@@ -55,7 +55,6 @@
 
 	<ItemGroup>
 	  <Folder Include="MVVC\Models\" />
-	  <Folder Include="MVVC\Converts\" />
 	</ItemGroup>
 
 	<ItemGroup>

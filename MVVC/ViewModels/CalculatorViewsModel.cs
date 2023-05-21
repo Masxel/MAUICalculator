@@ -226,6 +226,9 @@ namespace MauiCalculator.MVVC.ViewModels
                 case Operations.Clear:
                     break;
             }
+            Number1 = Result.ToString();
+            Number2 = "0";
+
         }
 
     }
