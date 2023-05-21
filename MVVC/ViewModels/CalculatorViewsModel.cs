@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MauiCalculator.MVVC.Enums;
+using PropertyChanged;
 
 namespace MauiCalculator.MVVC.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class CalculatorViewsModel
     {
         public bool ISNumber1 { set; get; } = true;
@@ -39,7 +36,7 @@ namespace MauiCalculator.MVVC.ViewModels
 
 
         private void Concatenar(string data)
-        {
+        {          
             if (ISNumber1)
             {
                 if (data == "0" && Number1 == "0")
@@ -50,7 +47,7 @@ namespace MauiCalculator.MVVC.ViewModels
                 {
                     Number1 = "0" + data;
                 }
-                Number1 = data;
+                Number1 += data;
             }
             else
             {
@@ -62,7 +59,7 @@ namespace MauiCalculator.MVVC.ViewModels
                 {
                     Number2 = "0" + data;
                 }
-                Number2 = data;
+                Number2 += data;
             }
 
             History += data;
@@ -166,7 +163,7 @@ namespace MauiCalculator.MVVC.ViewModels
                 Number1 = Result.ToString();
                 Number2 = "0";
             }
-            History += "^2";
+            History += "^";
         }
 
         private void ClearOperation()
@@ -195,7 +192,7 @@ namespace MauiCalculator.MVVC.ViewModels
                 Number1 = Result.ToString();
                 Number2 = "0";
             }
-            History += "+";
+            History += "%";
 
         }
 

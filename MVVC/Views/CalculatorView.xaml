@@ -25,6 +25,7 @@
         </Grid.ColumnDefinitions>
 
         <Label
+            HorizontalOptions="FillAndExpand"
             Grid.ColumnSpan="4"
             BackgroundColor="AliceBlue"
             FontAttributes="Bold"
@@ -37,7 +38,6 @@
             VerticalTextAlignment="Center"
             >
         </Label>
-
         <Label
             Grid.ColumnSpan="4"
             BackgroundColor="White"
@@ -72,7 +72,7 @@
             CornerRadius="20"
             FontSize="36"
             TextColor="White"
-            Text="χ²"
+            Text="^"
             Margin="5"
             Command="{Binding SquaredCommand}"
             ></Button>
@@ -96,7 +96,7 @@
             FontSize="36"
             TextColor="White"
             Text="/"
-            Command="{Binding DivisionOperation}"
+            Command="{Binding DivisionCommand}"
             Margin="5"
             ></Button>
         <Button
